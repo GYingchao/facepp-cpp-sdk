@@ -18,4 +18,21 @@
 
 #include "libfacepp_core.h"
 
+class File {
+	
+private:
+	string path;
+	Mat img;
 
+public :
+	void init() {
+
+	}
+
+	void resize_cv2() {
+		img = imread(path);
+
+	}
+
+
+};

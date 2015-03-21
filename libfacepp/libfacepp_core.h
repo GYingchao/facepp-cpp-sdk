@@ -25,7 +25,7 @@
 using namespace std;
 using namespace cv;
 
-string SERVER = "http://api.cn.faceplusplus.com/";
-string API_KEY = "";
-string API_SECRET = "";
+const string SERVER = "http://api.cn.faceplusplus.com/";
+const string API_KEY = "";
+const string API_SECRET = "";
 
