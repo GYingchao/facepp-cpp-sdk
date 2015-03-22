@@ -16,23 +16,4 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#include "libfacepp_core.h"
 
-class File {
-	
-private:
-	string path;
-	Mat img;
-
-public :
-	void init() {
-
-	}
-
-	void resize_cv2() {
-		img = imread(path);
-
-	}
-
-
-};

@@ -10,6 +10,7 @@ using namespace cv;
 
 int main()
 {
-	cout << "Hello Facepp" << endl;
+	Mat img  = imread("test.jpg");
+	facepp::resize_cv2(img);
 	return 0;
 }
