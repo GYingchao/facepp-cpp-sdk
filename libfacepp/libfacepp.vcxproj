@@ -82,10 +82,11 @@
   <ItemGroup>
     <ClCompile Include="libfacepp_core.cpp" />
     <ClCompile Include="libfacepp_test.cpp" />
-    <ClCompile Include="test.cpp" />
+    <ClCompile Include="stdafx.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libfacepp_core.h" />
+    <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

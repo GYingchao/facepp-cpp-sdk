@@ -12,5 +12,8 @@ int main()
 {
 	Mat img  = imread("test.jpg");
 	facepp::resize_cv2(img);
+
+	for (int i = 0; i < 40; i++)
+		cout << facepp::APIS[i] << endl;
 	return 0;
 }

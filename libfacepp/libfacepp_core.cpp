@@ -16,4 +16,69 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+#include "libfacepp_core.h"
 
+namespace facepp {
+	bool resize_cv2(Mat img) {
+		if (!(img.data && img.size))  { cerr << "Invalid image" << endl; return false; }
+		int bigdim = MAX(img.cols, img.rows);
+		double downscale = MAX(1.0, bigdim / 600.0);
+		cv::resize(img, img, cvSize(
+			(int)img.cols / downscale, (int)img.rows / downscale
+			));
+		imwrite("ftmp.bmp", img);
+		cout << "Resize Done" << endl;
+		return true;
+	}
+
+	http_response CheckResponse(const std::string &url, const http_response &response)
+	{
+		ucout << response.to_string() << endl;
+		return response;
+	}
+
+	char APIS[50][100] = {
+		"/detection/detect",
+		"/detection/landmark",
+		"/faceset/add_face",
+		"/faceset/create",
+		"/faceset/delete",
+		"/faceset/get_info",
+		"/faceset/remove_face",
+		"/faceset/set_info",
+		"/group/add_person",
+		"/group/create",
+		"/group/delete",
+		"/group/get_info",
+		"/group/remove_person",
+		"/group/set_info",
+		"/grouping/grouping",
+		"/info/get_app",
+		"/info/get_face",
+		"/info/get_faceset_list",
+		"/info/get_group_list",
+		"/info/get_image",
+		"/info/get_person_list",
+		"/info/get_quota",
+		"/info/get_session",
+		"/person/add_face",
+		"/person/create",
+		"/person/delete",
+		"/person/get_info",
+		"/person/remove_face",
+		"/person/set_info",
+		"/recognition/compare",
+		"/recognition/group_search",
+		"/recognition/identify",
+		"/recognition/recognize",
+		"/recognition/search",
+		"/recognition/test_train",
+		"/recognition/train",
+		"/recognition/verify",
+		"/train/group_search",
+		"/train/identify",
+		"/train/recognize",
+		"/train/search",
+		"/train/verify"
+	};
+}
