@@ -21,6 +21,15 @@
 using namespace cv;
 using namespace std;
 
+using namespace utility;                    // Common utilities like string conversions
+using namespace web;                        // Common features like URIs.
+using namespace web::http;                  // Common HTTP functionality
+using namespace web::http::client;          // HTTP client features
+using namespace concurrency::streams;       // Asynchronous streams
+
+const string API_KEY = "d80b2d4e7c2fe1e584c06b62dea1c840";
+const string API_SECRET = "";
+
 bool resize_cv2(Mat img) 
 {
 	if (!(img.data && img.size))  { cerr << "Invalid image" << endl; return false; }
@@ -34,3 +43,50 @@ bool resize_cv2(Mat img)
 	return true;
 }
 
+void connect()
+{
+	auto fileStream = std::make_shared<concurrency::streams::ostream>();
+
+	// Open stream to output file.
+	pplx::task<void> requestTask = concurrency::streams::fstream::open_ostream(U("results.html")).then([=](concurrency::streams::ostream outFile)
+	{
+		*fileStream = outFile;
+
+		// Create http_client to send the request.
+		http_client client(U("http://api.faceplusplus.com/v2/"));
+
+		// Build request URI and start the request.
+		uri_builder builder(U("/"));
+		builder.append_query(U("api_key"), API_KEY.c_str());
+		builder.append_query(U("api_secret"), API_SECRET.c_str());
+		builder.append_query(U("url"), "http%3A%2F%2Ffaceplusplus.com%2Fstatic%2Fimg%2Fdemo%2F1.jpg");
+
+		printf("%S\n", builder.to_string().c_str());
+		return client.request(methods::GET, builder.to_string());
+	})
+
+		// Handle response headers arriving.
+		.then([=](http_response response)
+	{
+		cout << "Received response status code " << response.status_code() << endl;
+
+		// Write response body into the file.
+		return response.body().read_to_end(fileStream->streambuf());
+	})
+
+		// Close the file stream.
+		.then([=](size_t)
+	{
+		return fileStream->close();
+	});
+
+	// Wait for all the outstanding I/O to complete and handle any exceptions
+	try
+	{
+		requestTask.wait();
+	}
+	catch (const std::exception &e)
+	{
+		cout << "Error exception" << e.what() << endl;
+	}
+}

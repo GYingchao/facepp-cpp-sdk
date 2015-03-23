@@ -20,64 +20,68 @@
 #define LIB_FACEPP_CORE_H
 
 #include <iostream>
+#include <cstdio>
 #include <string>
 
 #include <opencv2\core\core.hpp>
 #include <opencv2\highgui\highgui.hpp>
 #include <opencv2\imgproc\imgproc.hpp>
 
-const std::string SERVER = "http://api.cn.faceplusplus.com/";
-const std::string API_KEY = "";
-const std::string API_SECRET = "";
+#include <cpprest\http_client.h>
+#include <cpprest\filestream.h>
+
+const std::string SERVER = "http://api.faceplusplus.com/";
 const int TIMEOUT = 300;
 
-const int API_NUM = 42;
+const int API_NUM = 35;
 const int API_MAX_LENGTH = 100;
 
 bool resize_cv2(cv::Mat img);
+void connect();
+
 const char APIS[API_NUM][API_MAX_LENGTH] = {
 	"/detection/detect",
 	"/detection/landmark",
-	"/faceset/add_face",
-	"/faceset/create",
-	"/faceset/delete",
-	"/faceset/get_info",
-	"/faceset/remove_face",
-	"/faceset/set_info",
-	"/group/add_person",
-	"/group/create",
-	"/group/delete",
-	"/group/get_info",
-	"/group/remove_person",
-	"/group/set_info",
+
+	"/train/verify",
+	"/train/search",
+	"/train/identify",
+	
+	"/recognition/compare",
+	"/recognition/verify",
+	"/recognition/identify",
+	"/recognition/search",
+
 	"/grouping/grouping",
-	"/info/get_app",
-	"/info/get_face",
-	"/info/get_faceset_list",
-	"/info/get_group_list",
-	"/info/get_image",
-	"/info/get_person_list",
-	"/info/get_quota",
-	"/info/get_session",
-	"/person/add_face",
+
 	"/person/create",
 	"/person/delete",
-	"/person/get_info",
+	"/person/add_face",
 	"/person/remove_face",
 	"/person/set_info",
-	"/recognition/compare",
-	"/recognition/group_search",
-	"/recognition/identify",
-	"/recognition/recognize",
-	"/recognition/search",
-	"/recognition/test_train",
-	"/recognition/train",
-	"/recognition/verify",
-	"/train/group_search",
-	"/train/identify",
-	"/train/recognize",
-	"/train/search",
-	"/train/verify"
+	"/person/get_info",
+
+	"/faceset/create",
+	"/faceset/delete",
+	"/faceset/add_face",
+	"/faceset/remove_face",
+	"/faceset/set_info",
+	"/faceset/get_info",
+
+	"/group/create",
+	"/group/delete",
+	"/group/add_person",
+	"/group/remove_person",
+	"/group/set_info",
+	"/group/get_info",
+
+	"/info/get_image",
+	"/info/get_face",
+	"/info/get_faceset_list",
+	"/info/get_person_list",
+	"/info/get_group_list",
+	"/info/get_session",
+	"/info/get_app"	
 };
 
 #endif
