@@ -26,9 +26,10 @@ using namespace web;                        // Common features like URIs.
 using namespace web::http;                  // Common HTTP functionality
 using namespace web::http::client;          // HTTP client features
 using namespace concurrency::streams;       // Asynchronous streams
+using namespace web::json;
 
 const string API_KEY = "d80b2d4e7c2fe1e584c06b62dea1c840";
-const string API_SECRET = "";
+const string API_SECRET = "oOx5V2xvdf6wkaKRYlVD5Jzs5WxEH55A";
 
 bool resize_cv2(Mat img) 
 {
@@ -53,22 +54,27 @@ void connect()
 		*fileStream = outFile;
 
 		// Create http_client to send the request.
-		http_client client(U("http://api.faceplusplus.com/v2/"));
+		http_client client(U("http://api.faceplusplus.com/v2/detection/detect"));
 
 		// Build request URI and start the request.
 		uri_builder builder(U("/"));
 		builder.append_query(U("api_key"), API_KEY.c_str());
 		builder.append_query(U("api_secret"), API_SECRET.c_str());
-		builder.append_query(U("url"), "http%3A%2F%2Ffaceplusplus.com%2Fstatic%2Fimg%2Fdemo%2F1.jpg");
+		builder.append_query(U("url"), "http://www.faceplusplus.com/static/img/demo/1.jpg");
 
 		printf("%S\n", builder.to_string().c_str());
-		return client.request(methods::GET, builder.to_string());
+		return client.request(methods::POST, builder.to_string());
 	})
 
 		// Handle response headers arriving.
 		.then([=](http_response response)
 	{
 		cout << "Received response status code " << response.status_code() << endl;
+
+		pplx::task<json::value> result = response.extract_json();
+		
+		//printf("%s\n", result.get().as_object().at(U("face")).type() );
+		//cout << result.get().as_object().at(U("face")).type() << endl;
 
 		// Write response body into the file.
 		return response.body().read_to_end(fileStream->streambuf());
@@ -87,6 +93,6 @@ void connect()
 	}
 	catch (const std::exception &e)
 	{
-		cout << "Error exception" << e.what() << endl;
+		printf("Error exception %s\n", e.what());
 	}
 }
