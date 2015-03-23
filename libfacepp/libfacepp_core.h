@@ -16,18 +16,68 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#include "stdafx.h"
+#ifndef LIB_FACEPP_CORE_H
+#define LIB_FACEPP_CORE_H
 
-namespace facepp {
-	
-	const string SERVER = "http://api.cn.faceplusplus.com/";
-	const string API_KEY = "";
-	const string API_SECRET = "";
-	const int TIMEOUT = 300;
+#include <iostream>
+#include <string>
 
-	bool resize_cv2(Mat img);
+#include <opencv2\core\core.hpp>
+#include <opencv2\highgui\highgui.hpp>
+#include <opencv2\imgproc\imgproc.hpp>
 
-	http_response CheckResponse(const std::string &url, const http_response &response);
+const std::string SERVER = "http://api.cn.faceplusplus.com/";
+const std::string API_KEY = "";
+const std::string API_SECRET = "";
+const int TIMEOUT = 300;
 
-	extern char APIS[50][100];
-}
+const int API_NUM = 42;
+const int API_MAX_LENGTH = 100;
+
+bool resize_cv2(cv::Mat img);
+const char APIS[API_NUM][API_MAX_LENGTH] = {
+	"/detection/detect",
+	"/detection/landmark",
+	"/faceset/add_face",
+	"/faceset/create",
+	"/faceset/delete",
+	"/faceset/get_info",
+	"/faceset/remove_face",
+	"/faceset/set_info",
+	"/group/add_person",
+	"/group/create",
+	"/group/delete",
+	"/group/get_info",
+	"/group/remove_person",
+	"/group/set_info",
+	"/grouping/grouping",
+	"/info/get_app",
+	"/info/get_face",
+	"/info/get_faceset_list",
+	"/info/get_group_list",
+	"/info/get_image",
+	"/info/get_person_list",
+	"/info/get_quota",
+	"/info/get_session",
+	"/person/add_face",
+	"/person/create",
+	"/person/delete",
+	"/person/get_info",
+	"/person/remove_face",
+	"/person/set_info",
+	"/recognition/compare",
+	"/recognition/group_search",
+	"/recognition/identify",
+	"/recognition/recognize",
+	"/recognition/search",
+	"/recognition/test_train",
+	"/recognition/train",
+	"/recognition/verify",
+	"/train/group_search",
+	"/train/identify",
+	"/train/recognize",
+	"/train/search",
+	"/train/verify"
+};
+
+#endif
