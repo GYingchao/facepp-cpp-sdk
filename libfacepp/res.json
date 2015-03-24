@@ -1,0 +1,56 @@
+{
+    "face": [{
+        "attribute": {
+            "age": {
+                "range": 5,
+                "value": 24
+            },
+            "gender": {
+                "confidence": 99.999899999999997,
+                "value": "Female"
+            },
+            "race": {
+                "confidence": 98.058000000000007,
+                "value": "Asian"
+            },
+            "smiling": {
+                "value": 3.7839399999999999
+            }
+        },
+        "face_id": "581a9e2ebdcfdb2a1879c93777f94a6f",
+        "position": {
+            "center": {
+                "x": 50.121951000000003,
+                "y": 35.975610000000003
+            },
+            "eye_left": {
+                "x": 43.465122000000001,
+                "y": 30.670487999999999
+            },
+            "eye_right": {
+                "x": 56.808779999999999,
+                "y": 30.821950999999999
+            },
+            "height": 27.560976,
+            "mouth_left": {
+                "x": 45.649512000000001,
+                "y": 45.041707000000002
+            },
+            "mouth_right": {
+                "x": 55.134878,
+                "y": 44.858049000000001
+            },
+            "nose": {
+                "x": 50.183414999999997,
+                "y": 38.410732000000003
+            },
+            "width": 27.560976
+        },
+        "tag": ""
+    }],
+    "img_height": 410,
+    "img_id": "17c62a9ec7b7d0bea779ae2514c87c7e",
+    "img_width": 410,
+    "session_id": "3b574e210f494ed4b8ffba800aba2418",
+    "url": "http://www.faceplusplus.com/static/img/demo/1.jpg"
+}

@@ -31,6 +31,9 @@ using namespace web::json;
 const string API_KEY = "d80b2d4e7c2fe1e584c06b62dea1c840";
 const string API_SECRET = "oOx5V2xvdf6wkaKRYlVD5Jzs5WxEH55A";
 
+
+#include <fstream>
+
 bool resize_cv2(Mat img) 
 {
 	if (!(img.data && img.size))  { cerr << "Invalid image" << endl; return false; }
@@ -49,7 +52,7 @@ void connect()
 	auto fileStream = std::make_shared<concurrency::streams::ostream>();
 
 	// Open stream to output file.
-	pplx::task<void> requestTask = concurrency::streams::fstream::open_ostream(U("results.html")).then([=](concurrency::streams::ostream outFile)
+	pplx::task<void> requestTask = concurrency::streams::fstream::open_ostream(U("results.json")).then([=](concurrency::streams::ostream outFile)
 	{
 		*fileStream = outFile;
 
@@ -73,11 +76,16 @@ void connect()
 
 		pplx::task<json::value> result = response.extract_json();
 		
-		//printf("%s\n", result.get().as_object().at(U("face")).type() );
-		//cout << result.get().as_object().at(U("face")).type() << endl;
+		FILE *res_json = fopen("res.json", "w");
+
+		printf("%S\n", result.get().serialize().c_str() );
+		fprintf(res_json, "%S\n", result.get().serialize().c_str());
+
+		fclose(res_json);
 
 		// Write response body into the file.
 		return response.body().read_to_end(fileStream->streambuf());
+	
 	})
 
 		// Close the file stream.
