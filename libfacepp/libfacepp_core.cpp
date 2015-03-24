@@ -30,9 +30,7 @@ using namespace web::json;
 
 const string API_KEY = "d80b2d4e7c2fe1e584c06b62dea1c840";
 const string API_SECRET = "oOx5V2xvdf6wkaKRYlVD5Jzs5WxEH55A";
-
-
-#include <fstream>
+const uri API_SERVER(U("http://api.faceplusplus.com/v2/detection/detect"));
 
 bool resize_cv2(Mat img) 
 {
@@ -57,7 +55,8 @@ void connect()
 		*fileStream = outFile;
 
 		// Create http_client to send the request.
-		http_client client(U("http://api.faceplusplus.com/v2/detection/detect"));
+
+		http_client client(API_SERVER);
 
 		// Build request URI and start the request.
 		uri_builder builder(U("/"));

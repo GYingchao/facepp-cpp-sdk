@@ -20,8 +20,8 @@
 #define LIB_FACEPP_CORE_H
 
 #include <iostream>
-#include <cstdio>
 #include <string>
+#include <cstdio>
 
 #include <opencv2\core\core.hpp>
 #include <opencv2\highgui\highgui.hpp>
@@ -30,16 +30,14 @@
 #include <cpprest\http_client.h>
 #include <cpprest\filestream.h>
 
-const std::string SERVER = "http://api.faceplusplus.com/";
-const int TIMEOUT = 300;
-
 const int API_NUM = 35;
 const int API_MAX_LENGTH = 100;
 
 bool resize_cv2(cv::Mat img);
 void connect();
 
-const char APIS[API_NUM][API_MAX_LENGTH] = {
+const char APIS[API_NUM][API_MAX_LENGTH] = 
+{
 	"/detection/detect",
 	"/detection/landmark",
 

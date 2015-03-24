@@ -219,3 +219,4 @@ FakesAssemblies/
 
 # Project Property File
 OpenCV_x86.props
+results.json
