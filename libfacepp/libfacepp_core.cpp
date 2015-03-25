@@ -64,7 +64,7 @@ void connect()
 		builder.append_query(U("api_secret"), API_SECRET.c_str());
 		builder.append_query(U("url"), "http://www.faceplusplus.com/static/img/demo/1.jpg");
 
-		printf("%S\n", builder.to_string().c_str());
+		wcout << builder.to_string().c_str() << endl;
 		return client.request(methods::POST, builder.to_string());
 	})
 
@@ -75,12 +75,10 @@ void connect()
 
 		pplx::task<json::value> result = response.extract_json();
 		
-		FILE *res_json = fopen("res.json", "w");
+		wofstream res_json("res.json");
 
-		printf("%S\n", result.get().serialize().c_str() );
-		fprintf(res_json, "%S\n", result.get().serialize().c_str());
-
-		fclose(res_json);
+		wcout << result.get().serialize().c_str() << endl;
+		res_json << result.get().serialize().c_str() << endl;
 
 		// Write response body into the file.
 		return response.body().read_to_end(fileStream->streambuf());
@@ -100,6 +98,6 @@ void connect()
 	}
 	catch (const std::exception &e)
 	{
-		printf("Error exception %s\n", e.what());
+		cout << "Error exception " << e.what() << endl;
 	}
 }
