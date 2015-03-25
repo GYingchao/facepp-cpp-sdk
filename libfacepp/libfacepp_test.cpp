@@ -8,7 +8,8 @@ int main()
 	Mat img  = imread("test.jpg");
 	resize_cv2(img);
 
-	connect();
-	
+	facepp face;
+	face.connect();
+
 	return 0;
 }

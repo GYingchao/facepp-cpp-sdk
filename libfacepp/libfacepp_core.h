@@ -33,7 +33,12 @@ const int API_NUM = 35;
 const int API_MAX_LENGTH = 100;
 
 bool resize_cv2(cv::Mat img);
-void connect();
+
+class facepp
+{
+public:
+	void connect();
+};
 
 const char APIS[API_NUM][API_MAX_LENGTH] = 
 {

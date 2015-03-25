@@ -45,7 +45,7 @@ bool resize_cv2(Mat img)
 	return true;
 }
 
-void connect()
+void facepp::connect()
 {
 	auto fileStream = std::make_shared<concurrency::streams::ostream>();
 
@@ -74,7 +74,7 @@ void connect()
 		cout << "Received response status code " << response.status_code() << endl;
 
 		pplx::task<json::value> result = response.extract_json();
-		
+
 		wofstream res_json("res.json");
 
 		wcout << result.get().serialize().c_str() << endl;
@@ -82,7 +82,7 @@ void connect()
 
 		// Write response body into the file.
 		return response.body().read_to_end(fileStream->streambuf());
-	
+
 	})
 
 		// Close the file stream.
