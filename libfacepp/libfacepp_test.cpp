@@ -5,11 +5,9 @@ using namespace cv;
 
 int main()
 {
-	Mat img  = imread("test.jpg");
-	resize_cv2(img);
-
-	facepp face;
+	facepp face("test.jpg");
 	face.connect();
+	face.get_result();
 
 	return 0;
 }

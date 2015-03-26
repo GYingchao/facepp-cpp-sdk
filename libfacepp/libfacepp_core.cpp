@@ -32,7 +32,7 @@ const string API_KEY = "d80b2d4e7c2fe1e584c06b62dea1c840";
 const string API_SECRET = "oOx5V2xvdf6wkaKRYlVD5Jzs5WxEH55A";
 const uri API_SERVER(U("http://api.faceplusplus.com/v2/detection/detect"));
 
-bool resize_cv2(Mat img) 
+bool facepp::resize_cv2(Mat img) 
 {
 	if (!(img.data && img.size))  { cerr << "Invalid image" << endl; return false; }
 	int bigdim = MAX(img.cols, img.rows);
@@ -55,7 +55,6 @@ void facepp::connect()
 		*fileStream = outFile;
 
 		// Create http_client to send the request.
-
 		http_client client(API_SERVER);
 
 		// Build request URI and start the request.
@@ -82,7 +81,6 @@ void facepp::connect()
 
 		// Write response body into the file.
 		return response.body().read_to_end(fileStream->streambuf());
-
 	})
 
 		// Close the file stream.
@@ -100,4 +98,21 @@ void facepp::connect()
 	{
 		cout << "Error exception " << e.what() << endl;
 	}
+}
+
+facepp::facepp(String path)
+{
+	Mat img = imread(path);
+	resize_cv2(img);
+	img = imread("ftmp.bmp");
+}
+
+void facepp::get_result()
+{
+	wifstream res_json("res.json");
+	wstring res;
+	res_json >> res;
+
+	web::json::value result(res);
+
 }
