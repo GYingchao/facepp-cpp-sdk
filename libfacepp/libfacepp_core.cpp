@@ -63,7 +63,7 @@ void facepp::connect()
 		builder.append_query(U("api_secret"), API_SECRET.c_str());
 		builder.append_query(U("url"), "http://www.faceplusplus.com/static/img/demo/1.jpg");
 
-		wcout << builder.to_string().c_str() << endl;
+		wcout << builder.to_string() << endl;
 		return client.request(methods::POST, builder.to_string());
 	})
 
@@ -73,11 +73,10 @@ void facepp::connect()
 		cout << "Received response status code " << response.status_code() << endl;
 
 		pplx::task<json::value> result = response.extract_json();
+		get_result(result);
 
 		wofstream res_json("res.json");
-
-		wcout << result.get().serialize().c_str() << endl;
-		res_json << result.get().serialize().c_str() << endl;
+		res_json << result.get() << endl;
 
 		// Write response body into the file.
 		return response.body().read_to_end(fileStream->streambuf());
@@ -107,12 +106,15 @@ facepp::facepp(String path)
 	img = imread("ftmp.bmp");
 }
 
-void facepp::get_result()
+void facepp::get_result(pplx::task<json::value> result)
 {
-	wifstream res_json("res.json");
-	wstring res;
-	res_json >> res;
-
-	web::json::value result(res);
-
+	map_result.insert(pair<string, json::value>("img_height", result.get().at(U("img_height"))   ));
+	map_result.insert(pair<string, json::value>("img_width",  result.get().at(U("img_width"))    ));
+	map_result.insert(pair<string, json::value>("session_id", result.get().at(U("session_id"))   ));
+	map_result.insert(pair<string, json::value>("url",        result.get().at(U("url"))          ));
+	map_result.insert(pair<string, json::value>("img_id",     result.get().at(U("img_id"))       ));
+	
+	map <string, json::value>::iterator Iter;
+	for (Iter = map_result.begin(); Iter != map_result.end(); Iter++)
+		wcout << Iter->second << endl;
 }

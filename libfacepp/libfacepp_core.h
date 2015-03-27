@@ -21,6 +21,7 @@
 
 #include <iostream>
 #include <string>
+#include <map>
 
 #include <opencv2\core\core.hpp>
 #include <opencv2\highgui\highgui.hpp>
@@ -34,13 +35,12 @@ const int API_MAX_LENGTH = 100;
 
 class facepp
 {
-private:
-	cv::Mat img;
-
 public:
+	std::map<std::string, web::json::value> map_result;
+
 	bool resize_cv2(cv::Mat img);
 	void connect();
-	void get_result();
+	void get_result(pplx::task<web::json::value> result);
 
 	facepp(std::string path);
 };

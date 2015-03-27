@@ -220,3 +220,5 @@ FakesAssemblies/
 # Project Property File
 OpenCV_x86.props
 results.json
+res.json
+ftmp.bmp
