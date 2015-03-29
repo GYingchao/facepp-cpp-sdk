@@ -124,3 +124,23 @@ void facepp::get_result(pplx::task<json::value> result)
 	}
 		
 }
+
+void facepp::person::create()
+{
+
+}
+
+void facepp::group::create()
+{
+
+}
+
+void facepp::train::identify()
+{
+
+}
+
+void facepp::recognition::identify()
+{
+
+}

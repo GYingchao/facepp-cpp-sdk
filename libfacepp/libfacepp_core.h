@@ -38,11 +38,36 @@ class facepp
 public:
 	std::map<std::string, web::json::value> map_result;
 
+	facepp(std::string path);
+
 	bool resize_cv2(cv::Mat img);
 	void connect();
 	void get_result(pplx::task<web::json::value> result);
 
-	facepp(std::string path);
+	class person
+	{
+	public:
+		void create();
+	};
+
+	class group
+	{
+	public:
+		void create();
+	};
+
+	class train
+	{
+	public:
+		void identify();
+	};
+	
+	class recognition
+	{
+	public:
+		void identify();
+	};
+
 };
 
 const char APIS[API_NUM][API_MAX_LENGTH] = 

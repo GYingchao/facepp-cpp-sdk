@@ -7,6 +7,18 @@ int main()
 {
 	facepp face("test.jpg");
 	face.connect();
-	
+
+	facepp::person persons;
+	persons.create();
+
+	facepp::group groups;
+	groups.create();
+
+	facepp::train trains;
+	trains.identify();
+
+	facepp::recognition recognitions;
+	recognitions.identify();
+
 	return 0;
 }
