@@ -31,14 +31,23 @@ const string API_KEY = "d80b2d4e7c2fe1e584c06b62dea1c840";
 const string API_SECRET = "oOx5V2xvdf6wkaKRYlVD5Jzs5WxEH55A";
 const uri API_SERVER(U("http://api.faceplusplus.com/v2/detection/detect"));
 
+facepp::facepp(String path)
+{
+	Mat img = imread(path);
+	resize_cv2(img);
+	img = imread("ftmp.bmp");
+}
+
 bool facepp::resize_cv2(Mat img) 
 {
-	if (!(img.data && img.size))  { cerr << "Invalid image" << endl; return false; }
+	if (!(img.data && img.size))  
+	{ 
+		cerr << "Invalid image" << endl; 
+		return false; 
+	}
 	int bigdim = MAX(img.cols, img.rows);
 	double downscale = MAX(1.0, bigdim / 600.0);
-	cv::resize(img, img, cvSize(
-		static_cast<int>(img.cols / downscale), static_cast<int>(img.rows / downscale)
-		));
+	resize(img, img, cvSize(static_cast<int>(img.cols / downscale), static_cast<int>(img.rows / downscale)));
 	imwrite("ftmp.bmp", img);
 	cout << "Resize Done" << endl;
 	return true;
@@ -48,16 +57,14 @@ void facepp::connect()
 {
 	auto fileStream = std::make_shared<concurrency::streams::ostream>();
 
-	// Open stream to output file.
 	pplx::task<void> requestTask = concurrency::streams::fstream::open_ostream(U("results.json")).then([=](concurrency::streams::ostream outFile)
 	{
 		*fileStream = outFile;
 
-		// Create http_client to send the request.
 		http_client client(API_SERVER);
 
-		// Build request URI and start the request.
 		uri_builder builder(U("/"));
+		
 		builder.append_query(U("api_key"), API_KEY.c_str());
 		builder.append_query(U("api_secret"), API_SECRET.c_str());
 		builder.append_query(U("url"), "http://www.faceplusplus.com/static/img/demo/1.jpg");
@@ -66,7 +73,6 @@ void facepp::connect()
 		return client.request(methods::POST, builder.to_string());
 	})
 
-		// Handle response headers arriving.
 		.then([=](http_response response)
 	{
 		cout << "Received response status code " << response.status_code() << endl;
@@ -77,17 +83,14 @@ void facepp::connect()
 		wofstream res_json("res.json");
 		res_json << result.get() << endl;
 
-		// Write response body into the file.
 		return response.body().read_to_end(fileStream->streambuf());
 	})
 
-		// Close the file stream.
 		.then([=](size_t)
 	{
 		return fileStream->close();
 	});
 
-	// Wait for all the outstanding I/O to complete and handle any exceptions
 	try
 	{
 		requestTask.wait();
@@ -96,13 +99,6 @@ void facepp::connect()
 	{
 		cout << "Error exception " << e.what() << endl;
 	}
-}
-
-facepp::facepp(String path)
-{
-	Mat img = imread(path);
-	resize_cv2(img);
-	img = imread("ftmp.bmp");
 }
 
 void facepp::get_result(pplx::task<json::value> result)
