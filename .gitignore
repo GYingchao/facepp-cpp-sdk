@@ -203,7 +203,7 @@ FakesAssemblies/
 *.lai
 *.la
 *.a
-*.lib
+# *.lib
 *.lo
 
 # Fortran module files

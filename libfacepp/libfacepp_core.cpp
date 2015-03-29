@@ -26,7 +26,6 @@ using namespace web;                        // Common features like URIs.
 using namespace web::http;                  // Common HTTP functionality
 using namespace web::http::client;          // HTTP client features
 using namespace concurrency::streams;       // Asynchronous streams
-using namespace web::json;
 
 const string API_KEY = "d80b2d4e7c2fe1e584c06b62dea1c840";
 const string API_SECRET = "oOx5V2xvdf6wkaKRYlVD5Jzs5WxEH55A";
