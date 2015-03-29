@@ -107,13 +107,37 @@ facepp::facepp(String path)
 
 void facepp::get_result(pplx::task<json::value> result)
 {
-	map_result.insert(pair<string, json::value>("img_height", result.get().at(U("img_height"))   ));
-	map_result.insert(pair<string, json::value>("img_width",  result.get().at(U("img_width"))    ));
-	map_result.insert(pair<string, json::value>("session_id", result.get().at(U("session_id"))   ));
-	map_result.insert(pair<string, json::value>("url",        result.get().at(U("url"))          ));
-	map_result.insert(pair<string, json::value>("img_id",     result.get().at(U("img_id"))       ));
-	
+	map_result.insert(pair<string, json::value>("img_height", result.get().at(U("img_height"))		));
+	map_result.insert(pair<string, json::value>("img_width",  result.get().at(U("img_width"))		));
+	map_result.insert(pair<string, json::value>("session_id", result.get().at(U("session_id"))		));
+	map_result.insert(pair<string, json::value>("url",        result.get().at(U("url"))				));
+	map_result.insert(pair<string, json::value>("img_id",     result.get().at(U("img_id"))			));
+	map_result.insert(pair<string, json::value>("age",        result.get().at(U("face"))[0].at(U("attribute")).at(U("age")).at(U("value"))));
+	map_result.insert(pair<string, json::value>("gender",     result.get().at(U("face"))[0].at(U("attribute")).at(U("gender")).at(U("value"))));
+	map_result.insert(pair<string, json::value>("gender",     result.get().at(U("face"))[0].at(U("attribute")).at(U("race")).at(U("value"))));
+	map_result.insert(pair<string, json::value>("gender",     result.get().at(U("face"))[0].at(U("attribute")).at(U("smiling")).at(U("value"))));
+	map_result.insert(pair<string, json::value>("face_id",    result.get().at(U("face"))[0].at(U("face_id"))));
+	map_result.insert(pair<string, json::value>("center_x",   result.get().at(U("face"))[0].at(U("position")).at(U("center")).at(U("x"))));
+	map_result.insert(pair<string, json::value>("center_y",   result.get().at(U("face"))[0].at(U("position")).at(U("center")).at(U("y"))));
+	map_result.insert(pair<string, json::value>("eye_left_x", result.get().at(U("face"))[0].at(U("position")).at(U("eye_left")).at(U("x"))));
+	map_result.insert(pair<string, json::value>("eye_left_y", result.get().at(U("face"))[0].at(U("position")).at(U("eye_left")).at(U("y"))));
+	map_result.insert(pair<string, json::value>("eye_right_x",result.get().at(U("face"))[0].at(U("position")).at(U("eye_right")).at(U("x"))));
+	map_result.insert(pair<string, json::value>("eye_right_y",result.get().at(U("face"))[0].at(U("position")).at(U("eye_right")).at(U("y"))));
+	map_result.insert(pair<string, json::value>("height",     result.get().at(U("face"))[0].at(U("position")).at(U("height"))));
+	map_result.insert(pair<string, json::value>("mouth_left_x",  result.get().at(U("face"))[0].at(U("position")).at(U("mouth_left")).at(U("x"))));
+	map_result.insert(pair<string, json::value>("mouth_left_y",  result.get().at(U("face"))[0].at(U("position")).at(U("mouth_left")).at(U("y"))));
+	map_result.insert(pair<string, json::value>("mouth_right_x", result.get().at(U("face"))[0].at(U("position")).at(U("mouth_right")).at(U("x"))));
+	map_result.insert(pair<string, json::value>("mouth_right_y", result.get().at(U("face"))[0].at(U("position")).at(U("mouth_right")).at(U("y"))));
+	map_result.insert(pair<string, json::value>("nose_x",        result.get().at(U("face"))[0].at(U("position")).at(U("nose")).at(U("x"))));
+	map_result.insert(pair<string, json::value>("nose_y",        result.get().at(U("face"))[0].at(U("position")).at(U("nose")).at(U("y"))));
+	map_result.insert(pair<string, json::value>("width",         result.get().at(U("face"))[0].at(U("position")).at(U("width"))));
+	map_result.insert(pair<string, json::value>("tag",           result.get().at(U("face"))[0].at(U("tag"))));
+
 	map <string, json::value>::iterator Iter;
 	for (Iter = map_result.begin(); Iter != map_result.end(); Iter++)
+	{
+		cout << Iter->first << endl;
 		wcout << Iter->second << endl;
+	}
+		
 }
