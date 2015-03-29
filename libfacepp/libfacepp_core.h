@@ -30,8 +30,6 @@
 #include <cpprest\http_client.h>
 #include <cpprest\filestream.h>
 
-#include "json\json.h"
-
 const int API_NUM = 35;
 const int API_MAX_LENGTH = 100;
 

@@ -60,7 +60,4 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Library Include="lib\jsoncpp.lib" />
-  </ItemGroup>
 </Project>
