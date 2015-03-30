@@ -1,6 +1,6 @@
 // Face++ SDK for C++
 // The MIT License (MIT)
-// Copyright (c) 2015 clarkzjw
+// Copyright (c) 2015 clarkzjw@gmail.com
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the "Software"), to deal in
 // the Software without restriction, including without limitation the rights to
@@ -27,30 +27,95 @@ using namespace web::http;                  // Common HTTP functionality
 using namespace web::http::client;          // HTTP client features
 using namespace concurrency::streams;       // Asynchronous streams
 
-const string API_KEY = "d80b2d4e7c2fe1e584c06b62dea1c840";
-const string API_SECRET = "oOx5V2xvdf6wkaKRYlVD5Jzs5WxEH55A";
-const uri API_SERVER(U("http://api.faceplusplus.com/v2/detection/detect"));
+web::uri API_SERVER(U("http://api.faceplusplus.com/v2/detection/detect"));
+web::uri API_SERVER_BASE(U("http://api.faceplusplus.com/v2/"));
+
+void facepp::initAPIs()
+{
+	string apis[35] = {
+		"/detection/detect",
+		"/detection/landmark",
+
+		"/train/verify",
+		"/train/search",
+		"/train/identify",
+
+		"/recognition/compare",
+		"/recognition/verify",
+		"/recognition/identify",
+		"/recognition/search",
+
+		"/grouping/grouping",
+
+		"/person/create",
+		"/person/delete",
+		"/person/add_face",
+		"/person/remove_face",
+		"/person/set_info",
+		"/person/get_info",
+
+		"/faceset/create",
+		"/faceset/delete",
+		"/faceset/add_face",
+		"/faceset/remove_face",
+		"/faceset/set_info",
+		"/faceset/get_info",
+
+		"/group/create",
+		"/group/delete",
+		"/group/add_person",
+		"/group/remove_person",
+		"/group/set_info",
+		"/group/get_info",
+
+		"/info/get_image",
+		"/info/get_face",
+		"/info/get_faceset_list",
+		"/info/get_person_list",
+		"/info/get_group_list",
+		"/info/get_session",
+		"/info/get_app"
+	};
+
+	for (auto api : apis)
+		APIs.insert(api);
+}
+
+facepp::facepp()
+{
+	initAPIs();
+}
 
 facepp::facepp(String path)
 {
-	Mat img = imread(path);
-	resize_cv2(img);
-	img = imread("ftmp.bmp");
+	initAPIs();
+	img = imread(path);
+	cv2Resize();
 }
 
-bool facepp::resize_cv2(Mat img) 
+bool facepp::cv2Resize() 
 {
 	if (!(img.data && img.size))  
 	{ 
-		cerr << "Invalid image" << endl; 
+		cerr << "Invalid Image" << endl; 
 		return false; 
 	}
 	int bigdim = MAX(img.cols, img.rows);
 	double downscale = MAX(1.0, bigdim / 600.0);
-	resize(img, img, cvSize(static_cast<int>(img.cols / downscale), static_cast<int>(img.rows / downscale)));
-	imwrite("ftmp.bmp", img);
-	cout << "Resize Done" << endl;
-	return true;
+
+	if (downscale != 1.0)
+	{
+		resize(img, img, cvSize(static_cast<int>(img.cols / downscale), static_cast<int>(img.rows / downscale)));
+		cout << "Resize Done" << endl;
+		imwrite("ftmp.bmp", img);
+		img = imread("ftmp.bmp");
+		return true;
+	}
+	else
+	{
+		cout << "No need to resize" << endl;
+		return false;
+	}
 }
 
 void facepp::connect()
@@ -77,8 +142,8 @@ void facepp::connect()
 	{
 		cout << "Received response status code " << response.status_code() << endl;
 
-		pplx::task<json::value> result = response.extract_json();
-		get_result(result);
+		result = response.extract_json();
+		parseResult();
 
 		wofstream res_json("res.json");
 		res_json << result.get() << endl;
@@ -101,7 +166,7 @@ void facepp::connect()
 	}
 }
 
-void facepp::get_result(pplx::task<json::value> result)
+void facepp::parseResult()
 {
 	json::value root = result.get();
 	json::value face = root.at(U("face"))[0];
@@ -122,7 +187,6 @@ void facepp::get_result(pplx::task<json::value> result)
 		cout << Iter->first << " ";
 		wcout << Iter->second << endl;
 	}
-		
 }
 
 void facepp::person::create()

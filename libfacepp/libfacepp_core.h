@@ -1,6 +1,6 @@
 // Face++ SDK for C++
 // The MIT License (MIT)
-// Copyright (c) 2015 clarkzjw
+// Copyright (c) 2015 clarkzjw@gmail.com
 // Permission is hereby granted, free of charge, to any person obtaining a copy of
 // this software and associated documentation files (the "Software"), to deal in
 // the Software without restriction, including without limitation the rights to
@@ -17,11 +17,12 @@
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 #ifndef LIB_FACEPP_CORE_H
-#define LIB_FACEPP_CORE_H
+#	define LIB_FACEPP_CORE_H
 
 #include <iostream>
 #include <string>
 #include <map>
+#include <set>
 
 #include <opencv2\core\core.hpp>
 #include <opencv2\highgui\highgui.hpp>
@@ -30,19 +31,35 @@
 #include <cpprest\http_client.h>
 #include <cpprest\filestream.h>
 
-const int API_NUM = 35;
-const int API_MAX_LENGTH = 100;
+#ifdef MAX
+#undef MAX
+#	define MAX(a,b)  ((a) < (b) ? (b) : (a))
+#endif
 
 class facepp
 {
-public:
-	std::map<std::string, web::json::value> map_result;
+#ifndef API_NUM
+#	define API_NUM 35
+#endif
 
+private:
+	std::map<std::string, web::json::value> map_result;
+	std::set<std::string> APIs;
+	cv::Mat img;
+	pplx::task<web::json::value> result;
+
+	const std::string API_KEY = "d80b2d4e7c2fe1e584c06b62dea1c840";
+	const std::string API_SECRET = "oOx5V2xvdf6wkaKRYlVD5Jzs5WxEH55A";
+
+	void initAPIs();
+
+public:
+	facepp();
 	facepp(std::string path);
 
-	bool resize_cv2(cv::Mat img);
+	bool cv2Resize();
 	void connect();
-	void get_result(pplx::task<web::json::value> result);
+	void parseResult();
 
 	class person
 	{
@@ -67,53 +84,6 @@ public:
 	public:
 		void identify();
 	};
-
-};
-
-const char APIS[API_NUM][API_MAX_LENGTH] = 
-{
-	"/detection/detect",
-	"/detection/landmark",
-
-	"/train/verify",
-	"/train/search",
-	"/train/identify",
-	
-	"/recognition/compare",
-	"/recognition/verify",
-	"/recognition/identify",
-	"/recognition/search",
-
-	"/grouping/grouping",
-
-	"/person/create",
-	"/person/delete",
-	"/person/add_face",
-	"/person/remove_face",
-	"/person/set_info",
-	"/person/get_info",
-
-	"/faceset/create",
-	"/faceset/delete",
-	"/faceset/add_face",
-	"/faceset/remove_face",
-	"/faceset/set_info",
-	"/faceset/get_info",
-
-	"/group/create",
-	"/group/delete",
-	"/group/add_person",
-	"/group/remove_person",
-	"/group/set_info",
-	"/group/get_info",
-
-	"/info/get_image",
-	"/info/get_face",
-	"/info/get_faceset_list",
-	"/info/get_person_list",
-	"/info/get_group_list",
-	"/info/get_session",
-	"/info/get_app"	
 };
 
 #endif
