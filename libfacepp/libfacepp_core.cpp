@@ -27,8 +27,7 @@ using namespace web::http;                  // Common HTTP functionality
 using namespace web::http::client;          // HTTP client features
 using namespace concurrency::streams;       // Asynchronous streams
 
-web::uri API_SERVER(U("http://api.faceplusplus.com/v2/detection/detect"));
-web::uri API_SERVER_BASE(U("http://api.faceplusplus.com/v2/"));
+web::uri API_SERVER(U("http://api.faceplusplus.com/v2/"));
 
 void facepp::initAPIs()
 {
@@ -84,6 +83,7 @@ void facepp::initAPIs()
 facepp::facepp()
 {
 	initAPIs();
+	connect();
 }
 
 facepp::facepp(String path)
@@ -91,6 +91,7 @@ facepp::facepp(String path)
 	initAPIs();
 	img = imread(path);
 	cv2Resize();
+	connect(false);
 }
 
 bool facepp::cv2Resize() 
@@ -118,18 +119,18 @@ bool facepp::cv2Resize()
 	}
 }
 
-void facepp::connect()
+void facepp::connect(bool init)
 {
-	auto fileStream = std::make_shared<concurrency::streams::ostream>();
+	//if (init == false)
+	//	return;
 
 	pplx::task<void> requestTask = concurrency::streams::fstream::open_ostream(U("results.json")).then([=](concurrency::streams::ostream outFile)
 	{
-		*fileStream = outFile;
-
 		http_client client(API_SERVER);
 
 		uri_builder builder(U("/"));
 		
+		builder.append_path(U("detection/detect"));
 		builder.append_query(U("api_key"), API_KEY.c_str());
 		builder.append_query(U("api_secret"), API_SECRET.c_str());
 		builder.append_query(U("url"), "http://www.faceplusplus.com/static/img/demo/1.jpg");
@@ -145,15 +146,8 @@ void facepp::connect()
 		result = response.extract_json();
 		parseResult();
 
-		wofstream res_json("res.json");
+		wofstream res_json("results.json");
 		res_json << result.get() << endl;
-
-		return response.body().read_to_end(fileStream->streambuf());
-	})
-
-		.then([=](size_t)
-	{
-		return fileStream->close();
 	});
 
 	try
@@ -171,6 +165,8 @@ void facepp::parseResult()
 	json::value root = result.get();
 	json::value face = root.at(U("face"))[0];
 	json::value position = face.at(U("position"));
+
+	face_id = face.at(U("face_id")).as_string();
 
 	map_result.insert(pair<string, json::value>("img_height", root.at(U("img_height"))  ));
 	map_result.insert(pair<string, json::value>("img_width",  root.at(U("img_width"))   ));
@@ -191,7 +187,41 @@ void facepp::parseResult()
 
 void facepp::person::create()
 {
+	pplx::task<void> requestTask = concurrency::streams::fstream::open_ostream(U("persons.json")).then([=](concurrency::streams::ostream outFile)
+	{
+		http_client client(API_SERVER);
 
+		uri_builder builder(U("/"));
+
+		const std::string API_KEY = "d80b2d4e7c2fe1e584c06b62dea1c840";
+		const std::string API_SECRET = "oOx5V2xvdf6wkaKRYlVD5Jzs5WxEH55A";
+
+		builder.append_path(U("person/create"));
+		builder.append_query(U("api_key"), API_KEY.c_str());
+		builder.append_query(U("api_secret"), API_SECRET.c_str());
+		
+		wcout << builder.to_string() << endl;
+		return client.request(methods::POST, builder.to_string());
+	})
+
+		.then([=](http_response response)
+	{
+		cout << "Received response status code " << response.status_code() << endl;
+
+		pplx::task<web::json::value> result_tmp = response.extract_json();
+		
+		wofstream res_json("persons.json");
+		res_json << result_tmp.get() << endl;
+	});
+
+	try
+	{
+		requestTask.wait();
+	}
+	catch (const std::exception &e)
+	{
+		cout << "Error exception " << e.what() << endl;
+	}
 }
 
 void facepp::group::create()

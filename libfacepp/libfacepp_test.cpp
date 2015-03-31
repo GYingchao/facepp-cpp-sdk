@@ -6,8 +6,7 @@ using namespace cv;
 int main()
 {
 	facepp face("test.jpg");
-	face.connect();
-
+	
 	facepp::person persons;
 	persons.create();
 

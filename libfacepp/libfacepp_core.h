@@ -45,11 +45,13 @@ class facepp
 private:
 	std::map<std::string, web::json::value> map_result;
 	std::set<std::string> APIs;
-	cv::Mat img;
 	pplx::task<web::json::value> result;
+	cv::Mat img;
 
 	const std::string API_KEY = "d80b2d4e7c2fe1e584c06b62dea1c840";
 	const std::string API_SECRET = "oOx5V2xvdf6wkaKRYlVD5Jzs5WxEH55A";
+
+	std::wstring face_id;
 
 	void initAPIs();
 
@@ -58,7 +60,7 @@ public:
 	facepp(std::string path);
 
 	bool cv2Resize();
-	void connect();
+	void connect(bool init = true);
 	void parseResult();
 
 	class person

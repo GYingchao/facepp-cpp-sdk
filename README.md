@@ -1,5 +1,7 @@
 # facepp-cpp-sdk
 
+![Face++ Inside](http://www.faceplusplus.com.cn/static/resources/facepp_inside.png)
+
 ## Introduction
 facepp-cpp-sdk is [Face++](http://www.faceplusplus.com.cn/) SDK written in C++.
 
