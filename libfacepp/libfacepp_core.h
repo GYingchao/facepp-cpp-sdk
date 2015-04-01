@@ -31,10 +31,20 @@
 #include <cpprest\http_client.h>
 #include <cpprest\filestream.h>
 
+using std::map;
+using std::set;
+using std::string;
+using std::wstring;
+using web::json::value;
+using pplx::task;
+using cv::Mat;
+
 #ifdef MAX
 #undef MAX
 #	define MAX(a,b)  ((a) < (b) ? (b) : (a))
 #endif
+
+const web::uri API_SERVER(U("http://api.faceplusplus.com/v2/"));
 
 class facepp
 {
@@ -43,21 +53,22 @@ class facepp
 #endif
 
 private:
-	std::map<std::string, web::json::value> map_result;
-	std::set<std::string> APIs;
-	pplx::task<web::json::value> result;
-	cv::Mat img;
+	map<string, value> map_result;
+	set<string> APIs;
+	task<value> result;
+	
+	Mat img;
+	wstring face_id;
 
-	const std::string API_KEY = "d80b2d4e7c2fe1e584c06b62dea1c840";
-	const std::string API_SECRET = "oOx5V2xvdf6wkaKRYlVD5Jzs5WxEH55A";
-
-	std::wstring face_id;
-
+	const string API_KEY = "d80b2d4e7c2fe1e584c06b62dea1c840";
+	const string API_SECRET = "oOx5V2xvdf6wkaKRYlVD5Jzs5WxEH55A";
+	
 	void initAPIs();
 
 public:
+
 	facepp();
-	facepp(std::string path);
+	facepp(string path);
 
 	bool cv2Resize();
 	void connect(bool init = true);
