@@ -34,7 +34,12 @@ public:
 
 	web::uri_builder query;
 	web::json::value result;
-	void create();
+	void Create();
+	void Delete();
+	void Add_face();
+	void Remove_face();
+	void Set_info();
+	void Get_info();
 };
 
 #endif

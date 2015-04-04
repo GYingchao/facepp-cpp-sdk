@@ -18,24 +18,18 @@
 
 #pragma once
 
-#ifndef INFO_H
-#	define INFO_H
+#ifndef GROUPING_H
+#	define GROUPING_H
 
 #include "../libfacepp_core.h"
 
-class info
+class grouping
 {
 public:
-	info();
-	~info();
+	grouping();
+	~grouping();
 
-	void Get_image();
-	void Get_face();
-	void Get_person_list();
-	void Get_faceset_list();
-	void Get_group_list();
-	void Get_session();
-	void Get_app();
+	void Grouping();
 };
 
 #endif

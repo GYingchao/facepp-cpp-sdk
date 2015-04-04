@@ -35,7 +35,8 @@ public:
 	web::json::value result;
 	web::uri_builder query;
 
-	void detect(bool init = true);
+	void Detect(string Image_url);
+	void Landmark();
 };
 
 #endif

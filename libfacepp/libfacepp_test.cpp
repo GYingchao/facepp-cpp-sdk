@@ -2,22 +2,20 @@
 
 int main()
 {
-	facepp face("test.jpg");
-	
 	detection detections;
-	detections.detect(true);
+	detections.Detect("http://cn.faceplusplus.com/static/resources/python_demo/1.jpg");
 
 	person persons;
-	persons.create();
+	persons.Create();
 
 	group groups;
-	groups.create();
+	groups.Create();
 
 	train trains;
-	trains.identify();
+	trains.Identify();
 
 	recognition recognitions;
-	recognitions.identify();
+	recognitions.Identify();
 
 	return 0;
 }

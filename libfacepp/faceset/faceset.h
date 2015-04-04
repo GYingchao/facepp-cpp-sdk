@@ -28,6 +28,13 @@ class faceset
 public:
 	faceset();
 	~faceset();
+
+	void Create();
+	void Delete();
+	void Add_face();
+	void Remove_face();
+	void Set_info();
+	void Get_info();
 };
 
 #endif

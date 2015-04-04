@@ -42,6 +42,9 @@
     <ClCompile Include="info\info.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="grouping\grouping.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libfacepp.h">
@@ -69,6 +72,9 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="info\info.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="grouping\grouping.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

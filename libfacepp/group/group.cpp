@@ -8,7 +8,7 @@ group::~group()
 {
 }
 
-void group::create()
+void group::Create()
 {
 
 }

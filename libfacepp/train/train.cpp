@@ -11,7 +11,7 @@ train::~train()
 }
 
 
-void train::identify()
+void train::Identify()
 {
 
 }

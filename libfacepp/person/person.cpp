@@ -20,12 +20,13 @@ person::~person()
 {
 }
 
-void person::create()
+void person::Create()
 {
 	pplx::task<void> requestTask = concurrency::streams::fstream::open_ostream(U("persons.json")).then([=](concurrency::streams::ostream outFile)
 	{
 		http_client client(API_SERVER);
 
+		query.append_path(U("/person/create"));
 		query.append_query(U("api_key"), API_KEY.c_str());
 		query.append_query(U("api_secret"), API_SECRET.c_str());
 
@@ -42,7 +43,9 @@ void person::create()
 		pplx::task<web::json::value> jsonResult = response.extract_json();
 
 		result = jsonResult.get();
-
+#if __DEBUG__
+		wcout << result << endl << endl;
+#endif
 		wofstream res_json("persons.json");
 		res_json << jsonResult.get() << endl;
 	});

@@ -38,7 +38,6 @@ private:
 	Mat img;
 
 	void initAPIs();
-
 public:
 	double __version__ = 1.0;
 
@@ -46,7 +45,6 @@ public:
 	facepp(string path);
 
 	bool cv2Resize();
-	void connect(bool init = true);
 };
 
 #endif

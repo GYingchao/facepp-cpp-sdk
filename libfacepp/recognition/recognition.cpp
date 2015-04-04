@@ -10,7 +10,7 @@ recognition::~recognition()
 {
 }
 
-void recognition::identify()
+void recognition::Identify()
 {
 
 }

@@ -33,7 +33,10 @@ public:
 	~recognition();
 
 	web::json::value result;
-	void identify();
+	void Compare();
+	void Verify();
+	void Identify();
+	void Search();
 };
 
 #endif

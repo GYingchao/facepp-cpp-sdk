@@ -8,7 +8,7 @@ detection::~detection()
 {
 }
 
-void detection::detect(bool init)
+void detection::Detect(string Image_url)
 {
 	pplx::task<void> requestTask = concurrency::streams::fstream::open_ostream(U("results.json")).then([=](concurrency::streams::ostream outFile)
 	{
@@ -17,7 +17,7 @@ void detection::detect(bool init)
 		query.append_path(U("/detection/detect"));
 		query.append_query(U("api_key"), API_KEY.c_str());
 		query.append_query(U("api_secret"), API_SECRET.c_str());
-		query.append_query(U("url"), "http://www.faceplusplus.com/static/img/demo/1.jpg");
+		query.append_query(U("url"), Image_url.c_str());
 
 #if __DEBUG__
 		wcout << query.to_string() << endl;
@@ -31,7 +31,9 @@ void detection::detect(bool init)
 
 		jsonResult = response.extract_json();
 		result = jsonResult.get();
-
+#if __DEBUG__
+		wcout << result << endl << endl;
+#endif
 		wofstream res_json("results.json");
 		res_json << jsonResult.get() << endl;
 	});

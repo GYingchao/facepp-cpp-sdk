@@ -33,7 +33,12 @@ public:
 	~group();
 
 	web::json::value result;
-	void create();
+	void Create();
+	void Delete();
+	void Add_person();
+	void Remove_person();
+	void Set_info();
+	void Get_info();
 };
 
 #endif

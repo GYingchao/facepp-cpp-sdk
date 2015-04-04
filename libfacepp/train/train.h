@@ -33,7 +33,9 @@ public:
 	~train();
 
 	web::json::value result;
-	void identify();
+	void Verify();
+	void Search();
+	void Identify();
 };
 
 #endif

@@ -83,6 +83,7 @@
   <ItemGroup>
     <ClCompile Include="detection\detection.cpp" />
     <ClCompile Include="faceset\faceset.cpp" />
+    <ClCompile Include="grouping\grouping.cpp" />
     <ClCompile Include="group\group.cpp" />
     <ClCompile Include="info\info.cpp" />
     <ClCompile Include="libfacepp.cpp" />
@@ -94,6 +95,7 @@
   <ItemGroup>
     <ClInclude Include="detection\detection.h" />
     <ClInclude Include="faceset\faceset.h" />
+    <ClInclude Include="grouping\grouping.h" />
     <ClInclude Include="group\group.h" />
     <ClInclude Include="info\info.h" />
     <ClInclude Include="libfacepp.h" />
