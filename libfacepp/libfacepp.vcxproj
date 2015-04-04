@@ -55,6 +55,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -70,6 +71,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -79,7 +81,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="detection\detection.cpp" />
+    <ClCompile Include="faceset\faceset.cpp" />
     <ClCompile Include="group\group.cpp" />
+    <ClCompile Include="info\info.cpp" />
     <ClCompile Include="libfacepp.cpp" />
     <ClCompile Include="libfacepp_test.cpp" />
     <ClCompile Include="person\person.cpp" />
@@ -87,7 +92,10 @@
     <ClCompile Include="train\train.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="detection\detection.h" />
+    <ClInclude Include="faceset\faceset.h" />
     <ClInclude Include="group\group.h" />
+    <ClInclude Include="info\info.h" />
     <ClInclude Include="libfacepp.h" />
     <ClInclude Include="libfacepp_core.h" />
     <ClInclude Include="person\person.h" />

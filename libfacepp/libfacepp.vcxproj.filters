@@ -33,6 +33,15 @@
     <ClCompile Include="train\train.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="detection\detection.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="faceset\faceset.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="info\info.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="libfacepp.h">
@@ -51,6 +60,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="train\train.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="detection\detection.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="faceset\faceset.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="info\info.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
