@@ -34,10 +34,10 @@
 #include <cpprest\filestream.h>
 
 #include "libfacepp_core.h"
-#include "group.h"
-#include "person.h"
-#include "recognition.h"
-#include "train.h"
+#include "group/group.h"
+#include "person/person.h"
+#include "recognition/recognition.h"
+#include "train/train.h"
 
 using std::map;
 using std::set;

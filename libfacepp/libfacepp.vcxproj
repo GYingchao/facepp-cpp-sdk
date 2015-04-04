@@ -79,20 +79,20 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="group.cpp" />
+    <ClCompile Include="group\group.cpp" />
     <ClCompile Include="libfacepp.cpp" />
     <ClCompile Include="libfacepp_test.cpp" />
-    <ClCompile Include="person.cpp" />
-    <ClCompile Include="recognition.cpp" />
-    <ClCompile Include="train.cpp" />
+    <ClCompile Include="person\person.cpp" />
+    <ClCompile Include="recognition\recognition.cpp" />
+    <ClCompile Include="train\train.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="group.h" />
+    <ClInclude Include="group\group.h" />
     <ClInclude Include="libfacepp.h" />
     <ClInclude Include="libfacepp_core.h" />
-    <ClInclude Include="person.h" />
-    <ClInclude Include="recognition.h" />
-    <ClInclude Include="train.h" />
+    <ClInclude Include="person\person.h" />
+    <ClInclude Include="recognition\recognition.h" />
+    <ClInclude Include="train\train.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

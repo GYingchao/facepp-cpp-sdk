@@ -1,20 +1,19 @@
 #pragma once
 
-#ifndef PERSON_H
-#	define PERSON_H
+#ifndef GROUP_H
+#	define GROUP_H
 
-#include "libfacepp_core.h"
+#include "../libfacepp_core.h"
 
-class person
+class group
 {
 private:
 	Concurrency::task<web::json::value> jsonResult;
 
 public:
-	person();
-	~person();
+	group();
+	~group();
 
-	web::uri_builder query;
 	web::json::value result;
 	void create();
 };

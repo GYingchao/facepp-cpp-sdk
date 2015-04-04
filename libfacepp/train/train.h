@@ -1,18 +1,18 @@
 #pragma once
 
-#ifndef RECOGNITION_H
-#	define RECOGNITION_H
+#ifndef TRAIN_H
+#	define TRAIN_H
 
-#include "libfacepp_core.h"
+#include "../libfacepp_core.h"
 
-class recognition
+class train
 {
 private:
 	Concurrency::task<web::json::value> jsonResult;
 
 public:
-	recognition();
-	~recognition();
+	train();
+	~train();
 
 	web::json::value result;
 	void identify();

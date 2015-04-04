@@ -1,7 +1,8 @@
+#include "../libfacepp_core.h"
 #include "person.h"
-#include "libfacepp_core.h"
 
 #include <iostream>
+using namespace std;
 
 #include <cpprest\http_client.h>
 #include <cpprest\filestream.h>
@@ -14,7 +15,6 @@ using namespace web::http::client;          // HTTP client features
 person::person()
 {
 }
-
 
 person::~person()
 {
@@ -30,21 +30,21 @@ void person::create()
 		query.append_query(U("api_secret"), API_SECRET.c_str());
 
 #if __DEBUG__
-		std::wcout << query.to_string() << std::endl;
+		wcout << query.to_string() << endl;
 #endif
 		return client.request(methods::POST, query.to_string());
 	})
 
 		.then([=](http_response response)
 	{
-		std::cout << "Received response status code " << response.status_code() << std::endl;
+		cout << "Received response status code " << response.status_code() << endl;
 
 		pplx::task<web::json::value> jsonResult = response.extract_json();
 
 		result = jsonResult.get();
 
-		std::wofstream res_json("persons.json");
-		res_json << jsonResult.get() << std::endl;
+		wofstream res_json("persons.json");
+		res_json << jsonResult.get() << endl;
 	});
 
 	try
@@ -53,6 +53,6 @@ void person::create()
 	}
 	catch (const std::exception &e)
 	{
-		std::cout << "Error exception " << e.what() << std::endl;
+		cout << "Error exception " << e.what() << endl;
 	}
 }

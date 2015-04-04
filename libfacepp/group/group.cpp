@@ -1,10 +1,8 @@
 #include "group.h"
 
-
 group::group()
 {
 }
-
 
 group::~group()
 {
