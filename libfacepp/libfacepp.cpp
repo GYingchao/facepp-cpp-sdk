@@ -16,7 +16,7 @@
 // IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
 // CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#include "libfacepp_core.h"
+#include "libfacepp.h"
 
 using namespace cv;
 using namespace std;
@@ -181,58 +181,4 @@ void facepp::parseResult()
 		cout << Iter->first << " ";
 		wcout << Iter->second << endl;
 	}
-}
-
-void facepp::person::create()
-{
-	pplx::task<void> requestTask = concurrency::streams::fstream::open_ostream(U("persons.json")).then([=](concurrency::streams::ostream outFile)
-	{
-		http_client client(API_SERVER);
-
-		uri_builder builder(U("/"));
-
-		const std::string API_KEY = "d80b2d4e7c2fe1e584c06b62dea1c840";
-		const std::string API_SECRET = "oOx5V2xvdf6wkaKRYlVD5Jzs5WxEH55A";
-
-		builder.append_path(U("person/create"));
-		builder.append_query(U("api_key"), API_KEY.c_str());
-		builder.append_query(U("api_secret"), API_SECRET.c_str());
-		
-		wcout << builder.to_string() << endl;
-		return client.request(methods::POST, builder.to_string());
-	})
-
-		.then([=](http_response response)
-	{
-		cout << "Received response status code " << response.status_code() << endl;
-
-		pplx::task<web::json::value> result_tmp = response.extract_json();
-		
-		wofstream res_json("persons.json");
-		res_json << result_tmp.get() << endl;
-	});
-
-	try
-	{
-		requestTask.wait();
-	}
-	catch (const std::exception &e)
-	{
-		cout << "Error exception " << e.what() << endl;
-	}
-}
-
-void facepp::group::create()
-{
-
-}
-
-void facepp::train::identify()
-{
-
-}
-
-void facepp::recognition::identify()
-{
-
 }

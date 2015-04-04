@@ -1,19 +1,19 @@
-#include "libfacepp_core.h"
+#include "libfacepp.h"
 
 int main()
 {
 	facepp face("test.jpg");
 	
-	facepp::person persons;
+	person persons;
 	persons.create();
 
-	facepp::group groups;
+	group groups;
 	groups.create();
 
-	facepp::train trains;
+	train trains;
 	trains.identify();
 
-	facepp::recognition recognitions;
+	recognition recognitions;
 	recognitions.identify();
 
 	return 0;
