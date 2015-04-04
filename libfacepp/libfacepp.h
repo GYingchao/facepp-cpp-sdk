@@ -21,55 +21,26 @@
 #ifndef LIB_FACEPP_H
 #	define LIB_FACEPP_H
 
-#include <iostream>
-#include <string>
-#include <map>
-#include <set>
-
-#include <opencv2\core\core.hpp>
-#include <opencv2\highgui\highgui.hpp>
-#include <opencv2\imgproc\imgproc.hpp>
-
-#include <cpprest\http_client.h>
-#include <cpprest\filestream.h>
-
 #include "libfacepp_core.h"
-#include "group/group.h"
-#include "person/person.h"
-#include "recognition/recognition.h"
-#include "train/train.h"
 
-using std::map;
-using std::set;
-using std::string;
-using std::wstring;
-using web::json::value;
-using pplx::task;
-using cv::Mat;
-
-#ifdef MAX
-#undef MAX
-#	define MAX(a,b)  ((a) < (b) ? (b) : (a))
-#endif
+#include "detection\detection.h"
+#include "faceset\faceset.h"
+#include "group\group.h"
+#include "info\info.h"
+#include "person\person.h"
+#include "recognition\recognition.h"
+#include "train\train.h"
 
 class facepp
 {
-#ifndef API_NUM
-#	define API_NUM 35
-#endif
-
 private:
 	set<string> APIs;
 	Mat img;
 
-	Concurrency::task<web::json::value> jsonResult;
 	void initAPIs();
 
 public:
 	double __version__ = 1.0;
-
-	web::json::value result;
-	web::uri_builder query;
 
 	facepp();
 	facepp(string path);

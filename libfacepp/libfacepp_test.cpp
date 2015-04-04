@@ -1,14 +1,13 @@
 #include "libfacepp.h"
 
-#include <iostream>
-using namespace std;
-
 int main()
 {
 	facepp face("test.jpg");
+	
+	detection detections;
+	detections.detect(true);
 
 	person persons;
-	persons.query.append_path(U("/person/create"));
 	persons.create();
 
 	group groups;
