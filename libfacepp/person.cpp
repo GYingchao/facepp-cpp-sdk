@@ -26,27 +26,25 @@ void person::create()
 	{
 		http_client client(API_SERVER);
 
-		uri_builder builder(U("/"));
+		query.append_query(U("api_key"), API_KEY.c_str());
+		query.append_query(U("api_secret"), API_SECRET.c_str());
 
-		const std::string API_KEY = "d80b2d4e7c2fe1e584c06b62dea1c840";
-		const std::string API_SECRET = "oOx5V2xvdf6wkaKRYlVD5Jzs5WxEH55A";
-
-		builder.append_path(U("person/create"));
-		builder.append_query(U("api_key"), API_KEY.c_str());
-		builder.append_query(U("api_secret"), API_SECRET.c_str());
-
-		std::wcout << builder.to_string() << std::endl;
-		return client.request(methods::POST, builder.to_string());
+#if __DEBUG__
+		std::wcout << query.to_string() << std::endl;
+#endif
+		return client.request(methods::POST, query.to_string());
 	})
 
 		.then([=](http_response response)
 	{
 		std::cout << "Received response status code " << response.status_code() << std::endl;
 
-		pplx::task<web::json::value> result_tmp = response.extract_json();
+		pplx::task<web::json::value> jsonResult = response.extract_json();
+
+		result = jsonResult.get();
 
 		std::wofstream res_json("persons.json");
-		res_json << result_tmp.get() << std::endl;
+		res_json << jsonResult.get() << std::endl;
 	});
 
 	try

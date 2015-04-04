@@ -105,14 +105,18 @@ bool facepp::cv2Resize()
 	if (downscale != 1.0)
 	{
 		resize(img, img, cvSize(static_cast<int>(img.cols / downscale), static_cast<int>(img.rows / downscale)));
+#if __DEBUG__
 		cout << "Resize Done" << endl;
+#endif
 		imwrite("ftmp.bmp", img);
 		img = imread("ftmp.bmp");
 		return true;
 	}
 	else
 	{
+#if __DEBUG__
 		cout << "No need to resize" << endl;
+#endif
 		return false;
 	}
 }
@@ -126,26 +130,26 @@ void facepp::connect(bool init)
 	{
 		http_client client(API_SERVER);
 
-		uri_builder builder(U("/"));
-		
-		builder.append_path(U("detection/detect"));
-		builder.append_query(U("api_key"), API_KEY.c_str());
-		builder.append_query(U("api_secret"), API_SECRET.c_str());
-		builder.append_query(U("url"), "http://www.faceplusplus.com/static/img/demo/1.jpg");
+		query.append_path(U("/detection/detect"));
+		query.append_query(U("api_key"), API_KEY.c_str());
+		query.append_query(U("api_secret"), API_SECRET.c_str());
+		query.append_query(U("url"), "http://www.faceplusplus.com/static/img/demo/1.jpg");
 
-		wcout << builder.to_string() << endl;
-		return client.request(methods::POST, builder.to_string());
+#if __DEBUG__
+		wcout << query.to_string() << endl;
+#endif
+		return client.request(methods::POST, query.to_string());
 	})
 
 		.then([=](http_response response)
 	{
 		cout << "Received response status code " << response.status_code() << endl;
 
-		result = response.extract_json();
-		parseResult();
-
+		jsonResult = response.extract_json();
+		result = jsonResult.get();
+		
 		wofstream res_json("results.json");
-		res_json << result.get() << endl;
+		res_json << jsonResult.get() << endl;
 	});
 
 	try
@@ -155,30 +159,5 @@ void facepp::connect(bool init)
 	catch (const std::exception &e)
 	{
 		cout << "Error exception " << e.what() << endl;
-	}
-}
-
-void facepp::parseResult()
-{
-	json::value root = result.get();
-	json::value face = root.at(U("face"))[0];
-	json::value position = face.at(U("position"));
-
-	face_id = face.at(U("face_id")).as_string();
-
-	map_result.insert(pair<string, json::value>("img_height", root.at(U("img_height"))  ));
-	map_result.insert(pair<string, json::value>("img_width",  root.at(U("img_width"))   ));
-	map_result.insert(pair<string, json::value>("session_id", root.at(U("session_id"))  ));
-	map_result.insert(pair<string, json::value>("url",		  root.at(U("url"))         ));
-	map_result.insert(pair<string, json::value>("img_id",     root.at(U("img_id"))      ));
-
-	map_result.insert(pair<string, json::value>("face",       face                      ));
-	map_result.insert(pair<string, json::value>("position",   position                  ));
-
-	map <string, json::value>::iterator Iter;
-	for (Iter = map_result.begin(); Iter != map_result.end(); Iter++)
-	{
-		cout << Iter->first << " ";
-		wcout << Iter->second << endl;
 	}
 }

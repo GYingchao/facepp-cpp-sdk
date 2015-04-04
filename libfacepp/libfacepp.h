@@ -59,22 +59,23 @@ class facepp
 #endif
 
 private:
-	map<string, value> map_result;
 	set<string> APIs;
-	task<value> result;
-	
 	Mat img;
-	wstring face_id;
-	
+
+	Concurrency::task<web::json::value> jsonResult;
 	void initAPIs();
 
 public:
+	double __version__ = 1.0;
+
+	web::json::value result;
+	web::uri_builder query;
+
 	facepp();
 	facepp(string path);
 
 	bool cv2Resize();
 	void connect(bool init = true);
-	void parseResult();
 };
 
 #endif
