@@ -40,6 +40,11 @@ void person::Create()
 	{
 		cout << "Received response status code " << response.status_code() << endl;
 
+		if (response.status_code() != 200)
+		{
+			wcerr << response.to_string() << endl;
+			exit(-1);
+		}
 		pplx::task<web::json::value> jsonResult = response.extract_json();
 
 		result = jsonResult.get();

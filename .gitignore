@@ -221,7 +221,5 @@ FakesAssemblies/
 OpenCV_x86.props
 
 # Temp File
-results.json
-persons.json
-res.json
+*.json
 ftmp.bmp

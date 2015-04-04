@@ -32,6 +32,7 @@ public:
 	train();
 	~train();
 
+	web::uri_builder query;
 	web::json::value result;
 	void Verify();
 	void Search();

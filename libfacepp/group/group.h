@@ -32,7 +32,9 @@ public:
 	group();
 	~group();
 
+	web::uri_builder query;
 	web::json::value result;
+
 	void Create();
 	void Delete();
 	void Add_person();

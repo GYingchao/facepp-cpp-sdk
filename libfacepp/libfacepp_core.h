@@ -21,11 +21,12 @@
 #ifndef LIBFACEPP_CORE_H
 #	define LIBFACEPP_CORE_H
 
-#define __DEBUG__ 1
+#define __DEBUG__ 0
 
 #include <iostream>
 #include <string>
 #include <set>
+#include <cstdlib>
 using namespace std;
 
 #include <cpprest\http_client.h>
