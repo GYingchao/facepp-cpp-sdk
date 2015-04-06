@@ -22,11 +22,12 @@ facepp-cpp-sdk is [Face++](http://www.faceplusplus.com.cn/) SDK written in C++.
 - [x] train
 - [ ] recognition
 - [ ] grouping
-- [ ] person
+- [x] person
 - [ ] faceset
-- [ ] group
+- [x] group
 - [ ] info
 
 ### Toolchain
 - [ ] **cmake** support
+- [ ] Support Linux
 - [ ] Accepted by official repos
