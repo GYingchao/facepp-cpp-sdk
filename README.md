@@ -1,5 +1,7 @@
 # facepp-cpp-sdk
 
+[![Join the chat at https://gitter.im/JinweiClarkChao/facepp-cpp-sdk](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/JinweiClarkChao/facepp-cpp-sdk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ![Face++ Inside](http://www.faceplusplus.com.cn/static/resources/facepp_inside.png)
 
 ## Introduction
