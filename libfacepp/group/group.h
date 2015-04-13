@@ -37,7 +37,7 @@ public:
 
 	void Create();
 	void Delete();
-	void Add_person();
+	void Add_person(string groupName = " ", string groupId = " ", string personName = " ", string personId = " ");
 	void Remove_person();
 	void Set_info();
 	void Get_info();

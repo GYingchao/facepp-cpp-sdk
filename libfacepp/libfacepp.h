@@ -45,6 +45,8 @@ public:
 	facepp(string path);
 
 	bool cv2Resize();
+
+	void connect();
 };
 
 #endif

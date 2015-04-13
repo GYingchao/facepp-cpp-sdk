@@ -17,6 +17,8 @@ int main()
 	group groups;
 	groups.query.append_query(U("group_name"), "TestGroup2");
 	groups.Create();
+	groups.Add_person("TestGroup2", "", "TestName2", "");
+	
 	wstring group_name = groups.result.at(U("group_name")).as_string();
 
 	train trains;
