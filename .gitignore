@@ -223,3 +223,6 @@ OpenCV_x86.props
 # Temp File
 *.json
 ftmp.bmp
+
+# CMake
+.idea/
