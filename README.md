@@ -16,7 +16,7 @@ facepp-cpp-sdk is [Face++](http://www.faceplusplus.com.cn/) SDK written in C++.
 **Optional**
 + [cmake](http://www.cmake.org)
 
-  Since JetBrains released CLion 1.0, a capability test of libfacepp on CLion will be covered recently. 
+  Since JetBrains released CLion 1.0, a capability test of libfacepp on CLion will be covered recently. If CLion is stable enough and capable with OpenCV and C++ REST SDK, this project will transfer to CMake based only instread.
 
 **Note**
 + C++ REST SDK and OpenCV will be automatically installed by NuGet package manager if you are using MS Visual Studio 2013 and above.
